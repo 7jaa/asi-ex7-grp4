@@ -4,11 +4,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>19p-3igpt-projdev-limesurvey</groupId>
-    <artifactId>19p-3igpt-projdev-limesurvey</artifactId>
+    <groupId>asi-ex7-grp4</groupId>
+    <artifactId>asi-ex7-grp4</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>19p-3igpt-projdev-limesurvey</name>
+    <name>asi-ex7-grp4</name>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
