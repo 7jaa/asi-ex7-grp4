@@ -24,7 +24,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>19p-3igpt-projdev-limesurvey</finalName>
+        <finalName>asi-ex7-grp4</finalName>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
