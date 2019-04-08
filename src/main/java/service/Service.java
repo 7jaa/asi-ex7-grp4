@@ -27,7 +27,7 @@ public class Service {
         List<PersonCoordinates> participants = new ArrayList<>();
 
         JSONParser parser = new JSONParser();
-        JSONArray peopleCoordinates = (JSONArray) parser.parse(new FileReader("C:\\Users\\joris.aubert\\Documents\\6e_semestre\\620_Systemes_d'information\\626-1_Architecture_du_SI\\626-1.5_Architecture_du_SI\\FestivaliersGPSPos.json"));
+        JSONArray peopleCoordinates = (JSONArray) parser.parse(new FileReader("FestivaliersGPSPos.json"));
 
         for (Object pers : peopleCoordinates) {
             JSONObject personJSON = (JSONObject) pers;
