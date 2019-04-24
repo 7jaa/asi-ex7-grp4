@@ -1,5 +1,6 @@
 package application;
 
+import clientFencer.ClientFencer;
 import org.json.simple.parser.ParseException;
 import service.Service;
 
@@ -9,6 +10,8 @@ public class App {
     public static void main(String[] args) throws ParseException, IOException {
         Service serv = new Service();
         serv.getAllParticipants();
+
+        ClientFencer cliFencer = new ClientFencer();
 
         System.out.println("--- Exemple du nombre de participants par zone ---");
         System.out.println("Zone 1:");
@@ -29,5 +32,7 @@ public class App {
         System.out.println(serv.getPercentageOfParticipantsByZone(3));
         System.out.println("Zone 4 pourcentage:");
         System.out.println(serv.getPercentageOfParticipantsByZone(4));
+
+        System.out.println(cliFencer.getGeofences().isEmpty());
     }
 }
