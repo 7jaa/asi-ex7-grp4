@@ -61,7 +61,7 @@ public class ClientFencer {
 
     List<Geofence> geofences = new ArrayList<>();
     JSONParser parser = new JSONParser();
-    JSONArray geofenceCoordinates = (JSONArray) ((JSONObject)parser.parse(sb.toString())).get("data"); // add json http response
+    JSONArray geofenceCoordinates = (JSONArray) ((JSONObject)parser.parse(sb.toString())).get("data"); // THIS IS WHY MY CODE DIDN'T RETURN ANYTHING !!! -> IT WAS MISSING THE "DATA" OBJECT
 
     for (Object geofence : geofenceCoordinates)
 
