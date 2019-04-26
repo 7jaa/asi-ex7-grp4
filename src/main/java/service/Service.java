@@ -20,6 +20,7 @@ import static java.lang.Math.floor;
  * @author MJM
  */
 public class Service {
+
     public Service() {
     }
 
@@ -27,7 +28,8 @@ public class Service {
         List<PersonCoordinates> participants = new ArrayList<>();
 
         JSONParser parser = new JSONParser();
-        JSONArray peopleCoordinates = (JSONArray) parser.parse(new FileReader("FestivaliersGPSPos.json"));
+        JSONArray peopleCoordinates = (JSONArray) parser
+            .parse(new FileReader("FestivaliersGPSPos.json"));
 
         for (Object pers : peopleCoordinates) {
             JSONObject personJSON = (JSONObject) pers;
@@ -42,9 +44,11 @@ public class Service {
             Double longitude = (Double) personJSON.get("geoPosLon");
             person.setGeoPosLon(longitude);
 
+            //add zone to
+
             Random randomGenerator = new Random();
             int zoneRandom = randomGenerator.nextInt(4) + 1;
-            person.setZone(zoneRandom);
+            //person.setZone(zoneRandom);
 
             participants.add(person);
             //System.out.println(person);
@@ -68,41 +72,19 @@ public class Service {
         return numberOfParticipants;
     }
 
-    public double getPercentageOfParticipantsByZone(int zone) throws IOException, ParseException {
+    /*public double getPercentageOfParticipantsByZone(int zone) throws IOException, ParseException {
         double number = getNumberOfParticipantsByZone(zone);
         return floor(number * 100) / 1000;
+    }*/
+
+    public int getNumberOfParticipantsByGeofence(String idGeofence)
+        throws IOException, ParseException {
+        int nbParticipantsByGeofence = 0;
+        List<PersonCoordinates> persons = this.getAllParticipants();
+
+
+
+        return nbParticipantsByGeofence;
     }
-		/*if (conn.getResponseCode() != 200) {
-			throw new RuntimeException("Failed : HTTP error code : "
-					+ conn.getResponseCode());
-		}
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(
-			(conn.getInputStream())));
-
-                StringBuilder sb = new StringBuilder();
-		String output;
-		while ((output = br.readLine()) != null) {
-		    sb.append(output);
-		}
-
-		conn.disconnect();
-                
-                
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(sb.toString());
-                JSONObject json = (JSONObject) obj;
-                
-                String estConv = (String) json.get("easting");
-                String nordConv = (String) json.get("northing");
-                String altConv = (String) json.get("altitude");
-                                
-                convertedCoords.put("est", estConv);
-                convertedCoords.put("nord", nordConv);
-                convertedCoords.put("altitude", altConv);
-                
-                return convertedCoords;
-                */
-
-
 }
+

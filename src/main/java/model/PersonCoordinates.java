@@ -4,7 +4,7 @@ public class PersonCoordinates {
     private Long id;
     private Double geoPosLat;
     private Double geoPosLon;
-    private int zone;
+    private Boolean zone;
 
     public Long getId() {
         return id;
@@ -30,11 +30,11 @@ public class PersonCoordinates {
         this.geoPosLon = geoPosLon;
     }
 
-    public int getZone() {
+    public Boolean getZone() {
         return zone;
     }
 
-    public void setZone(int zone) {
+    public void setZone(Boolean zone) {
         this.zone = zone;
     }
 

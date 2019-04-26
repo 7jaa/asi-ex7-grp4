@@ -17,10 +17,17 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import service.Service;
 
 public class ClientFencer {
 
   URL url;
+  private static String ApplicationKey = "eaf5b589-6831-5945-897e-79c4872f4358";
+  private static String ZPlageKey = "cf5fb706-ab61-4127-bfea-75fdac0e4d3a";
+  private static String ZFoodNBeverageKey = "3957835b-0a5f-4b83-98b7-cea456e0698c";
+  private static String ZSceneKey = "553d30b3-d0aa-491d-8f6a-a2e3de1ee8ab";
+
+  Service service = new Service();
 
   public ClientFencer() {
 
@@ -28,12 +35,12 @@ public class ClientFencer {
 
   public List<Geofence> getGeofences() {
     try {
-      url = new URL("https://api.fencer.io/v1.0");
+      url = new URL("https://api.fencer.io/v1.0/geofence");
 
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
       conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", "eaf5b589-6831-5945-897e-79c4872f4358");
+      conn.setRequestProperty("Authorization", ApplicationKey);
       conn.setRequestProperty("Accept", "application/json");
 
       if (conn.getResponseCode() != 200) {
@@ -50,17 +57,18 @@ public class ClientFencer {
 
         conn.disconnect();
 
-
+        System.out.println("Result:" + sb.toString());
 
     List<Geofence> geofences = new ArrayList<>();
     JSONParser parser = new JSONParser();
-    JSONArray geofenceCoordinates = (JSONArray) parser.parse(sb.toString()); // add json http response
+    JSONArray geofenceCoordinates = (JSONArray) ((JSONObject)parser.parse(sb.toString())).get("data"); // add json http response
 
     for (Object geofence : geofenceCoordinates)
 
     {
       JSONObject geofenceJSON = (JSONObject) geofence;
       Geofence geofenceJava = new Geofence();
+
 
       String id = (String) geofenceJSON.get("id");
       geofenceJava.setId(id);
@@ -69,7 +77,8 @@ public class ClientFencer {
       geofenceJava.setAlias(alias);
 
       geofences.add(geofenceJava);
-      //System.out.println(person);
+
+      //System.out.println(geofenceJava.getAlias());
       return geofences;
     }
     }
@@ -82,7 +91,31 @@ public class ClientFencer {
     } catch (ParseException e) {
       e.printStackTrace();
     }
-    return null;
+    return getGeofences();
+  }
+
+  public Boolean checkPersonInsideGeofence(String zone){
+    try{
+      url = new URL("https://api.fencer.io/v1.0/position/inside/"+ zone);
+
+      HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+      conn.setRequestProperty("Authorization",ApplicationKey);
+
+      List<PersonCoordinates> participants = service.getAllParticipants();
+
+      for (int i=0; i < participants.size(); i++){
+
+      }
+
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 
 }
