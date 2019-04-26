@@ -22,15 +22,27 @@ import service.Service;
 public class ClientFencer {
 
   URL url;
-  private static String ApplicationKey = "eaf5b589-6831-5945-897e-79c4872f4358";
-  private static String ZPlageKey = "cf5fb706-ab61-4127-bfea-75fdac0e4d3a";
-  private static String ZFoodNBeverageKey = "3957835b-0a5f-4b83-98b7-cea456e0698c";
-  private static String ZSceneKey = "553d30b3-d0aa-491d-8f6a-a2e3de1ee8ab";
+  private String ApplicationKey = "eaf5b589-6831-5945-897e-79c4872f4358";
+  private String ZPlageKey = "cf5fb706-ab61-4127-bfea-75fdac0e4d3a";
+  private String ZFoodNBeverageKey = "3957835b-0a5f-4b83-98b7-cea456e0698c";
+  private String ZSceneKey = "553d30b3-d0aa-491d-8f6a-a2e3de1ee8ab";
 
   Service service = new Service();
 
   public ClientFencer() {
 
+  }
+
+  public String getZPlageKey() {
+    return ZPlageKey;
+  }
+
+  public String getZFoodNBeverageKey() {
+    return ZFoodNBeverageKey;
+  }
+
+  public String getZSceneKey() {
+    return ZSceneKey;
   }
 
   public List<Geofence> getGeofences() {
@@ -40,7 +52,7 @@ public class ClientFencer {
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
       conn.setRequestMethod("GET");
-      conn.setRequestProperty("Authorization", ApplicationKey);
+      conn.setRequestProperty("Authorization",ApplicationKey);
       conn.setRequestProperty("Accept", "application/json");
 
       if (conn.getResponseCode() != 200) {
@@ -94,29 +106,38 @@ public class ClientFencer {
     return getGeofences();
   }
 
-  public Boolean checkPersonInsideGeofence(String zone){
-    try{
-      url = new URL("https://api.fencer.io/v1.0/position/inside/"+ zone);
+  public int nbPersonInsideGeofence(String zone) throws IOException, ParseException {
+    int nbPersInZone = 0;
+
+      url = new URL("https://api.fencer.io/v1.0/position/inside/" + zone);
 
       HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-      conn.setRequestProperty("Authorization",ApplicationKey);
+      conn.setRequestProperty("Authorization", ApplicationKey);
 
-      List<PersonCoordinates> participants = service.getAllParticipants();
+    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    StringBuilder sb = new StringBuilder();
 
-      for (int i=0; i < participants.size(); i++){
+    String output;
+    while ((output = br.readLine()) != null) {
+      sb.append(output);
 
-      }
-
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ParseException e) {
-      e.printStackTrace();
     }
-    return false;
-  }
+      List<PersonCoordinates> participants = service.getAllParticipants();
+      JSONParser parser = new JSONParser();
 
-}
 
+    for (int i=0; i<= participants.size();i++) {
+          conn.setRequestProperty("Lat-Pos", participants.get(i).getGeoPosLat().toString());
+          conn.setRequestProperty("Lng-Pos", participants.get(i).getGeoPosLon().toString());
+          PersonCoordinates participant = new PersonCoordinates();
+          JSONObject inside = (JSONObject) ((JSONObject) parser.parse(sb.toString())).get("inside");
+          if (inside.toString() == "true") {
+            nbPersInZone++;
+          }
+
+        }
+
+        return nbPersInZone;
+      }
+    }

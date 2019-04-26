@@ -58,7 +58,7 @@ public class Service {
 
     }
 
-    public int getNumberOfParticipantsByZone(int zone) throws IOException, ParseException {
+    /*public int getNumberOfParticipantsByZone(int zone) throws IOException, ParseException {
         int numberOfParticipants = 0;
 
         List<PersonCoordinates> participants = getAllParticipants();
@@ -70,7 +70,7 @@ public class Service {
         }
 
         return numberOfParticipants;
-    }
+    }*/
 
     /*public double getPercentageOfParticipantsByZone(int zone) throws IOException, ParseException {
         double number = getNumberOfParticipantsByZone(zone);

@@ -13,7 +13,7 @@ public class App {
 
         ClientFencer cliFencer = new ClientFencer();
 
-        System.out.println("--- Exemple du nombre de participants par zone ---");
+        /*System.out.println("--- Exemple du nombre de participants par zone ---");
         System.out.println("Zone 1:");
         System.out.println(serv.getNumberOfParticipantsByZone(1));
         System.out.println("Zone 2:");
@@ -27,11 +27,10 @@ public class App {
         System.out.println("Zone 2 pourcentage:");
         System.out.println(serv.getPercentageOfParticipantsByZone(2));
         System.out.println("Zone 3 pourcentage:");
-        System.out.println(serv.getPercentageOfParticipantsByZone(3));
+        System.out.println(serv.getPercentageOfParticipantsByZone(3));*/
 
-        System.out.println(cliFencer.getGeofences().isEmpty());
-        for (int i = 0; i< cliFencer.getGeofences().size()-1; i++){
-          System.out.println(cliFencer.getGeofences().get(i));
-      }
+        //System.out.println(cliFencer.getGeofences().isEmpty());
+
+        System.out.println(cliFencer.nbPersonInsideGeofence(cliFencer.getZPlageKey()));
     }
 }
