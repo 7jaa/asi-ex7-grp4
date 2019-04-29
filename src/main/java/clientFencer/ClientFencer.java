@@ -22,10 +22,10 @@ import service.Service;
 public class ClientFencer {
 
   URL url;
-  private String ApplicationKey = "eaf5b589-6831-5945-897e-79c4872f4358";
-  private String ZPlageKey = "cf5fb706-ab61-4127-bfea-75fdac0e4d3a";
-  private String ZFoodNBeverageKey = "3957835b-0a5f-4b83-98b7-cea456e0698c";
-  private String ZSceneKey = "553d30b3-d0aa-491d-8f6a-a2e3de1ee8ab";
+  private String ApplicationKey = "bc6a9fac-e4fd-5233-91f3-58640a752302";
+  private String ZPlageKey = "1c065621-fbe6-4d2d-b31a-e52755757879";
+  private String ZFoodNBeverageKey = "17c31b7e-7c57-40cf-b5f0-3630f53d41cd";
+  private String ZSceneKey = "3b7fcd71-a98d-4d95-a917-9ae6e2524ea1";
 
   Service service = new Service();
 
@@ -69,7 +69,7 @@ public class ClientFencer {
 
         conn.disconnect();
 
-        System.out.println("Result:" + sb.toString());
+        //System.out.println("Test zone list content:" + sb.toString());
 
     List<Geofence> geofences = new ArrayList<>();
     JSONParser parser = new JSONParser();
@@ -90,8 +90,8 @@ public class ClientFencer {
 
       geofences.add(geofenceJava);
 
-      //System.out.println(geofenceJava.getAlias());
-      return geofences;
+      //System.out.println(geofences.get(geofences.indexOf(geofenceJava)).getAlias()); - DO NOT UNCOMMENT -- infinite loop!!!!
+
     }
     }
     } catch (ProtocolException e) {
@@ -137,7 +137,7 @@ public class ClientFencer {
           }
 
         }
-
+        conn.disconnect();
         return nbPersInZone;
       }
     }
